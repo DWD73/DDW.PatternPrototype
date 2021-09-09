@@ -6,62 +6,98 @@ namespace DDW.PatternPrototype
     class Program
     {
         static void Main(string[] args)
-        {                     
-            Transport truck = new Truck("Reno");
-            Console.WriteLine(truck.ToString());
+        {
+            GetTruck();
 
-            Console.WriteLine($"{new string('-', 20)}\n");
+            SetNewLine();
 
-            Transport truck2 = (Truck)truck.MyClone();           
+            GetTruckMini();
+
+            SetNewLine();
+
+            GetTruckSuperMini();
+
+        }
+
+        private static void GetTruck()
+        {
+           
+            Console.WriteLine("Объект\n");
+            Transport truck = new Truck("Reno");          
+            Console.WriteLine(truck.ToString());           
+
+            Console.WriteLine("Прототипы\n");
+
+            IMyCloneable<Truck> myCloneable = (Truck)truck;
+            Transport truck2 = myCloneable.MyClone2();          
+
+            Transport truck3 = (Truck)truck.MyClone();
 
             truck.Move();
-            Transport truck3 = (Truck)truck.Clone();
+            truck.Name = "Grigoriy";
+            
+
+            Truck truck4 = (Truck)truck.Clone();
+            truck4.goods.Type = "Meat";
 
             Console.WriteLine(truck.ToString());
             Console.WriteLine(truck2.ToString());
             Console.WriteLine(truck3.ToString());
+            Console.WriteLine(truck4.ToString());
+        }
 
-            Console.WriteLine($"{new string('*', 50)}\n");
-
-
+        private static void GetTruckMini()
+        {
+            Console.WriteLine("Объект\n");
 
             Transport truckMini = new TruckMini("RenoMini");
             Console.WriteLine(truckMini.ToString());
-            Console.WriteLine($"{new string('-', 20)}\n");
 
-            Transport truckMini2 = (TruckMini)truckMini.MyClone();
-            Transport truckMini3 = (TruckMini)truckMini.Clone();
+            Console.WriteLine("Прототипы\n");
 
-            truckMini2.IsMove = false;
+            IMyCloneable<TruckMini> myCloneableMini = (TruckMini)truckMini;
+            Transport truckMini2 = myCloneableMini.MyClone2();
             Console.WriteLine(truckMini2.ToString());
-
-            truckMini3.Move();
+         
+            Transport truckMini3 = (TruckMini)truckMini.MyClone();
+            truckMini3.IsMove = false;
             Console.WriteLine(truckMini3.ToString());
 
-            Console.WriteLine($"{new string('*', 50)}\n");
+            TruckMini truckMini4 = (TruckMini)truckMini.Clone();
+            truckMini4.goods.Type = "Fruit";
+            
+            truckMini4.Move();
+            Console.WriteLine(truckMini4.ToString());
+        }
 
-
+        private static void GetTruckSuperMini()
+        {
+            Console.WriteLine("Объект\n");
 
             Transport truckSuperMini = new TruckSuperMini("RenoSuperMini");
             Console.WriteLine(truckSuperMini.ToString());
-            Console.WriteLine($"{new string('-', 20)}\n");
 
-            truckSuperMini.IsMove = false;
-            Transport truckSuperMini2 = (Transport)truckSuperMini.MyClone();
+            Console.WriteLine("Прототипы\n");
+
+            IMyCloneable<TruckSuperMini> myCloneableSuperMini = (TruckSuperMini)truckSuperMini;
+            Transport truckSuperMini2 = myCloneableSuperMini.MyClone2();
             Console.WriteLine(truckSuperMini2.ToString());
 
-            truckSuperMini.Move();
+            truckSuperMini.IsMove = false;
             Transport truckSuperMini3 = (TruckMini)truckSuperMini.MyClone();
             Console.WriteLine(truckSuperMini3.ToString());
 
-            Transport truckSuperMini4 = (Truck)truckSuperMini.Clone();
+            TruckMini truckSuperMini4 = (TruckMini)truckSuperMini.Clone();
+            truckSuperMini4.goods.Type = "Vegetables";
             Console.WriteLine(truckSuperMini4.ToString());
-
         }
 
-        
 
-       
+        private static void SetNewLine()
+        {
+            Console.WriteLine($"{new string('*', 50)}\n");
+        }
+
 
     }
 
